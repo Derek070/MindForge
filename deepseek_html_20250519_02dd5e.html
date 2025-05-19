@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ноумен | Современная философия</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0A0A0A;
+            --dark: #121212;
+            --gray: #1E1E1E;
+            --orange: #FF6B35;
+            --orange-light: #FF9E58;
+            --orange-dark: #E04E10;
+            --text: #EAEAEA;
+            --text-secondary: #B0B0B0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--black);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 107, 53, 0.1);
+            transition: all 0.4s ease;
+        }
+        
+        header.scrolled {
+            padding: 1rem 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--orange);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--orange);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--orange);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero */
+        .hero {
+            height: 100vh;
+            min-height: 800px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(255, 107, 53, 0.1) 0%, rgba(10, 10, 10, 1) 70%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 700px;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--orange), var(--orange-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            background-color: var(--orange);
+            color: var(--black);
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            background-color: var(--orange-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--orange);
+            border: 2px solid var(--orange);
+            margin-left: 1.5rem;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255, 107, 53, 0.1);
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50%;
+            max-width: 700px;
+            height: auto;
+            opacity: 0.9;
+            z-index: -1;
+        }
+        
+        /* Philosophers */
+        .philosophers {
+            padding: 8rem 0;
+            background-color: var(--dark);
+        }
+        
+        .section-header {
+            margin-bottom: 5rem;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--orange), transparent);
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .philosopher-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .philosopher-card {
+            background-color: var(--gray);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.4s, box-shadow 0.4s;
+            position: relative;
+        }
+        
+        .philosopher-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .philosopher-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            object-position: top;
+        }
+        
+        .philosopher-content {
+            padding: 2rem;
+        }
+        
+        .philosopher-name {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--orange);
+        }
+        
+        .philosopher-era {
+            display: inline-block;
+            background-color: rgba(255, 107, 53, 0.1);
+            color: var(--orange);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .philosopher-bio {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .philosopher-quote {
+            font-style: italic;
+            position: relative;
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .philosopher-quote::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -0.5rem;
+            font-size: 3rem;
+            color: var(--orange);
+            opacity: 0.3;
+            line-height: 1;
+        }
+        
+        /* Articles */
+        .articles {
+            padding: 8rem 0;
+        }
+        
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .article-card {
+            background-color: var(--gray);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.4s;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .article-image-container {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .article-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .article-card:hover .article-image {
+            transform: scale(1.05);
+        }
+        
+        .article-tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--orange);
+            color: var(--black);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .article-content {
+            padding: 1.5rem;
+        }
+        
+        .article-date {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .article-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            transition: color 0.3s;
+        }
+        
+        .article-card:hover .article-title {
+            color: var(--orange);
+        }
+        
+        .article-excerpt {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            color: var(--orange);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .read-more:hover {
+            color: var(--orange-light);
+        }
+        
+        .read-more i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .read-more:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(10, 10, 10, 1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.05) 0%, rgba(10, 10, 10, 0) 70%);
+            z-index: -1;
+            animation: rotate 30s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .newsletter-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .newsletter-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .newsletter-description {
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background-color: var(--gray);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px 0 0 50px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .newsletter-input:focus {
+            border-color: var(--orange);
+        }
+        
+        .newsletter-btn {
+            padding: 1rem 2rem;
+            background-color: var(--orange);
+            color: var(--black);
+            font-weight: 600;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .newsletter-btn:hover {
+            background-color: var(--orange-light);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            padding: 5rem 0 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            color: var(--orange);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+        
+        .footer-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--gray);
+            border-radius: 50%;
+            color: var(--text);
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--orange);
+            color: var(--black);
+            transform: translateY(-3px);
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--orange);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero-image {
+                opacity: 0.3;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                text-align: center;
+                padding-top: 100px;
+                min-height: auto;
+                height: auto;
+                padding-bottom: 4rem;
+            }
+            
+            .hero-content {
+                margin: 0 auto;
+            }
+            
+            .hero-image {
+                display: none;
+            }
+            
+            .btn-group {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .philosopher-grid, .article-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: 50px;
+                margin-bottom: 1rem;
+            }
+            
+            .newsletter-btn {
+                border-radius: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Ноумен<span class="logo-dot"></span></a>
+                <div class="nav-links">
+                    <a href="#philosophers">Философы</a>
+                    <a href="#articles">Статьи</a>
+                    <a href="#school">Школа</a>
+                    <a href="#about">О нас</a>
+                    <a href="#contact">Контакты</a>
+                </div>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Философия в современном мире</h1>
+                <p>Исследуйте глубины человеческого мышления с ведущими философами прошлого и настоящего. Понимание, которое формирует реальность.</p>
+                <div class="btn-group">
+                    <a href="#philosophers" class="btn">Начать изучение</a>
+                    <a href="#school" class="btn btn-outline">Присоединиться к школе</a>
+                </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Философское мышление" class="hero-image floating">
+        </div>
+    </section>
+    
+    <!-- Philosophers -->
+    <section id="philosophers" class="philosophers">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Великие мыслители</h2>
+                <p class="section-subtitle">Исследуйте идеи философов, которые изменили ход человеческой мысли</p>
+            </div>
+            
+            <div class="philosopher-grid">
+                <!-- Карточка 1 -->
+                <div class="philosopher-card">
+                    <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Мартин Хайдеггер" class="philosopher-image">
+                    <div class="philosopher-content">
+                        <span class="philosopher-era">20 век</span>
+                        <h3 class="philosopher-name">Мартин Хайдеггер</h3>
+                        <p class="philosopher-bio">Немецкий философ, известный своим фундаментальным вопросом о бытии и анализом человеческого существования (Dasein).</p>
+                        <blockquote class="philosopher-quote">"Язык — дом бытия. В своем жилище обитает человек."</blockquote>
+                        <a href="#" class="read-more">Изучить работы <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Карточка 2 -->
+                <div class="philosopher-card">
+                    <img src="https://images.unsplash.com/photo-1551218372-a1c8b33c6f46?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Симон де Бовуар" class="philosopher-image">
+                    <div class="philosopher-content">
+                        <span class="philosopher-era">20 век</span>
+                        <h3 class="philosopher-name">Симон де Бовуар</h3>
+                        <p class="philosopher-bio">Французская писательница и философ, основоположница феминистской экзистенциальной философии.</p>
+                        <blockquote class="philosopher-quote">"Женщиной не рождаются, женщиной становятся."</blockquote>
+                        <a href="#" class="read-more">Изучить работы <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Карточка 3 -->
+                <div class="philosopher-card">
+                    <img src="https://images.unsplash.com/photo-1584824486539-53bb4646bdbc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Славой Жижек" class="philosopher-image">
+                    <div class="philosopher-content">
+                        <span class="philosopher-era">Современность</span>
+                        <h3 class="philosopher-name">Славой Жижек</h3>
+                        <p class="philosopher-bio">Словенский философ и культуролог, работающий в традиции гегелевской диалектики, психоанализа и марксизма.</p>
+                        <blockquote class="philosopher-quote">"Идеология — это не ложное сознание, а бессознательное структурирование самой нашей социальной реальности."</blockquote>
+                        <a href="#" class="read-more">Изучить работы <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Карточка 4 -->
+                <div class="philosopher-card">
+                    <img src="https://images.unsplash.com/photo-1589994965851-a8f479c573cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Юрген Хабермас" class="philosopher-image">
+                    <div class="philosopher-content">
+                        <span class="philosopher-era">20-21 век</span>
+                        <h3 class="philosopher-name">Юрген Хабермас</h3>
+                        <p class="philosopher-bio">Немецкий философ и социолог, разработавший теорию коммуникативного действия и публичной сферы.</p>
+                        <blockquote class="philosopher-quote">"Разум — это не субстанция, а процесс."</blockquote>
+                        <a href="#" class="read-more">Изучить работы <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Карточка 5 -->
+                <div class="philosopher-card">
+                    <img src="https://images.unsplash.com/photo-1584473457491-9d5e2a0e3b3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Мишель Фуко" class="philosopher-image">
+                    <div class="philosopher-content">
+                        <span class="philosopher-era">20 век</span>
+                        <h3 class="philosopher-name">Мишель Фуко</h3>
+                        <p class="philosopher-bio">Французский философ, исследовавший взаимосвязи между властью, знанием и социальными институтами.</p>
+                        <blockquote class="philosopher-quote">"Знание — это не просто набор представлений; это прежде всего возможность различения и классификации."</blockquote>
+                        <a href="#" class="read-more">Изучить работы <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Карточка 6 -->
+                <div class="philosopher-card">
+                    <img src="https://images.unsplash.com/photo-1584824486509-112b3c5b257c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Марта Нуссбаум" class="philosopher-image">
+                    <div class="philosopher-content">
+                        <span class="philosopher-era">Современность</span>
+                        <h3 class="philosopher-name">Марта Нуссбаум</h3>
+                        <p class="philosopher-bio">Американская философ, разрабатывающая концепцию "возможностей" как основу социальной справедливости.</p>
+                        <blockquote class="philosopher-quote">"Философия — это не просто анализ, это призыв к изменению мира."</blockquote>
+                        <a href="#" class="read-more">Изучить работы <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Articles -->
+    <section id="articles" class="articles">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Современные исследования</h2>
+                <p class="section-subtitle">Актуальные статьи на стыке философии, науки и культуры</p>
+            </div>
+            
+            <div class="article-grid">
+                <!-- Статья 1 -->
+                <div class="article-card">
+                    <div class="article-image-container">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Философия технологий" class="article-image">
+                        <span class="article-tag">Технофилософия</span>
+                    </div>
+                    <div class="article-content">
+                        <p class="article-date">15 июня 2023</p>
+                        <h3 class="article-title">Этика искусственного интеллекта: новые вызовы</h3>
+                        <p class="article-excerpt">Как философские концепции могут помочь нам сформировать этические рамки для развития ИИ и предотвратить потенциальные риски.</p>
+                        <a href="#" class="read-more">Читать статью <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Статья 2 -->
+                <div class="article-card">
+                    <div class="article-image-container">
+                        <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Экологическая философия" class="article-image">
+                        <span class="article-tag">Экофилософия</span>
+                    </div>
+                    <div class="article-content">
+                        <p class="article-date">2 июня 2023</p>
+                        <h3 class="article-title">Глубинная экология Арне Нэсса</h3>
+                        <p class="article-excerpt">Анализ философских основ глубинной экологии и ее значения для преодоления экологического кризиса современности.</p>
+                        <a href="#" class="read-more">Читать статью <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Статья 3 -->
+                <div class="article-card">
+                    <div class="article-image-container">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Философия сознания" class="article-image">
+                        <span class="article-tag">Философия сознания</span>
+                    </div>
+                    <div class="article-content">
+                        <p class="article-date">20 мая 2023</p>
+                        <h3 class="article-title">Квантовое сознание: научная реальность или философская спекуляция?</h3>
+                        <p class="article-excerpt">Критический анализ теорий квантового сознания с позиций современной философии и когнитивных наук.</p>
+                        <a href="#" class="read-more">Читать статью <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-container">
+                <h2 class="newsletter-title">Присоединяйтесь к нашему сообществу</h2>
+                <p class="newsletter-description">Подпишитесь на рассылку и получайте эксклюзивные материалы, анонсы мероприятий и новые статьи прямо на вашу почту.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Ваш email" class="newsletter-input" required>
+                    <button type="submit" class="newsletter-btn">Подписаться</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="footer-logo">Ноумен</a>
+                    <p class="footer-description">Современная платформа для изучения философии и критического мышления.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4 class="footer-title">Разделы</h4>
+                    <ul class="footer-links">
+                        <li><a href="#philosophers">Философы</a></li>
+                        <li><a href="#articles">Статьи</a></li>
+                        <li><a href="#school">Школа</a></li>
+                        <li><a href="#events">Мероприятия</a></li>
+                        <li><a href="#podcasts">Подкасты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4 class="footer-title">Направления</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Этика</a></li>
+                        <li><a href="#">Эпистемология</a></li>
+                        <li><a href="#">Метафизика</a></li>
+                        <li><a href="#">Философия науки</a></li>
+                        <li><a href="#">Политическая философия</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4 class="footer-title">Контакты</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@noumen.ru">info@noumen.ru</a></li>
+                        <li><a href="#">Партнерство</a></li>
+                        <li><a href="#">Для прессы</a></li>
+                        <li><a href="#">Вакансии</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Ноумен. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Font Awesome для иконок -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <!-- Скрипт для фиксированного хедера -->
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
